@@ -41,6 +41,16 @@ h1 {
     flex-direction: column;
 }
 
+.photographer_section article:hover {
+    transition: opacity 200ms;
+    opacity: 0.8;
+}
+
+.photographer_section article:not(:hover) {
+    transition: opacity 200ms;
+    opacity: 1;
+}
+
 .photographer_section article img {
     height: 200px;
     width: 200px;
