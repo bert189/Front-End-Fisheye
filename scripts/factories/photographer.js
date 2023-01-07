@@ -1,4 +1,5 @@
-function photographerFactory(data) {
+
+export function photographerFactory(data) {
     const { name, id, city, country, tagline, price, portrait } = data;
 
     const picture = `assets/photographers/${portrait}`;
@@ -34,5 +35,6 @@ function photographerFactory(data) {
         
         return (a);
     }
+    
     return { name, picture, getUserCardDOM };
 }
