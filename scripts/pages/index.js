@@ -15,14 +15,13 @@ function displayPhotographers(photographers) {
     const photographersSection = document.querySelector(".photographers_section");
 
     photographers.forEach((photographer) => {
-        const photographerModel = photographerFactory(photographer);
-        const userCardDOM = photographerModel.getUserCardDOM();
-        photographersSection.appendChild(userCardDOM);
+        const photographerCard = photographerFactory(photographer);
+        photographersSection.appendChild(photographerCard);
     });
 };
 
 
-// init() s'éxécute au chargement de la page :
+// init() s'execute au chargement de la page :
 //   1. récupération data API
 //   2. création array photographers
 //   3. affichage photographes
@@ -30,7 +29,6 @@ function displayPhotographers(photographers) {
 async function init() {
     const data = await getAPI(api_url);
     const photographers = await data.photographers;
-    // console.log(photographers);
     displayPhotographers(photographers);
 }
 
