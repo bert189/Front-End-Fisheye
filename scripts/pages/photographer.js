@@ -25,7 +25,7 @@ const photographerId = parseInt(urlParams.get('id'));
 function displayPhotographer(datasPhotographer) {    
     
     // object destructuring
-    const { profile, img, fee } = photographerFactory(datasPhotographer);
+    const { profile, img, fee } = photographerFactory(datasPhotographer, 'photographer');
 
     const profilePhotographer = document.querySelector('.profile-photographer');
     profilePhotographer.appendChild(profile);
@@ -40,11 +40,11 @@ function displayPhotographer(datasPhotographer) {
 
 // boucle d'affichage des médias
 
-function displayMedias(medias) {
+function displayMedias(medias, photographerName) {
     const mediasContainer = document.querySelector(".medias-container");
 
     medias.forEach((media) => {
-        const mediaCard = mediaFactory(media);
+        const mediaCard = mediaFactory({...media, photographerName: photographerName}); // spread operator
         mediasContainer.appendChild(mediaCard);
     });
 }
@@ -58,30 +58,47 @@ function displayMedias(medias) {
 //   5. affichage medias du photographe
 
 
-async function init(photographerId) {
+// async function init(photographerId) {
     
-    const data = await getAPI(api_url);
-    const photographers = await data.photographers;
-    const medias = await data.media;
+//     const data = await getAPI(api_url);
+//     const photographers = await data.photographers;
+//     const medias = await data.media;
 
-    let datasPhotographer = [];
+//     let datasPhotographer = [];
 
-    photographers.forEach(photographer => {
-        if (photographer.id === photographerId) {
-            datasPhotographer = photographer;
-        }
-    })
+//     photographers.forEach(photographer => {
+//         if (photographer.id === photographerId) {
+//             datasPhotographer = photographer;
+//         }
+//     });   
 
-    let mediasPhotographer = [];
+//     let mediasPhotographer = [];
 
-    medias.forEach(media => {
-        if (media.photographerId === photographerId) {
-            mediasPhotographer.push(media);
-        }
-    });
+//     medias.forEach(media => {
+//         if (media.photographerId === photographerId) {
+//             mediasPhotographer.push(media);
+//         }
+//     });
+   
+//     const name = datasPhotographer.name;
+    
+//     displayPhotographer(datasPhotographer);
+//     displayMedias(mediasPhotographer, name);
+// }
 
-    displayPhotographer(datasPhotographer);
-    displayMedias(mediasPhotographer);
+async function init(photographerId) {
+    const {photographers, media} = await getAPI(api_url);
+
+    // find() retourne le 1er objet qui répond à la condition, et s'arrête
+    const photographer = photographers.find(p => p.id === photographerId);
+    
+    // filter() retourne tous les objets qui répondent à la condition
+    const medias = media.filter(m => m.photographerId === photographerId);
+    
+    displayPhotographer(photographer);
+
+    // passer le nom pour du photographe pour l'url de son dossier medias
+    displayMedias(medias, photographer.name);
 }
 
 init(photographerId);

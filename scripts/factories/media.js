@@ -1,8 +1,8 @@
 // cration de la card img
 
-function getImageCardDOM(media, photographer) {
+function getImageCardDOM(media) {
     
-    const urlImage = `assets/medias/${photographer.name}/${media.image}`;
+    const urlImage = `assets/medias/${media.photographerName}/${media.image}`;
 
     const article = document.createElement( 'article' );
 
@@ -10,17 +10,16 @@ function getImageCardDOM(media, photographer) {
     img.setAttribute("src", urlImage);
 
     const title = document.createElement( 'h3' );
-    h3.textContent = media.title;
+    title.textContent = media.title;
 
     const likes = document.createElement('div');
-    likes.textContent = `${media.likes}&nbsp;&#10084;`;
+    likes.innerHTML = `${media.likes}&nbsp;&#10084;`;
 
     article.appendChild(img);
     article.appendChild(title);
     article.appendChild(likes);
 
-    return (article);
-      
+    return (article);      
 
 }
 
@@ -28,25 +27,24 @@ function getImageCardDOM(media, photographer) {
 
 function getVideoCardDOM(media) {
     
-    const urlVideo = `assets/images/${media.video}`;
+    const urlVideo = `assets/medias/${media.photographerName}/${media.video}`;
 
     const article = document.createElement( 'article' );
     
     const video = document.createElement( 'video' );
-    img.setAttribute("src", urlVideo);
+    video.setAttribute("src", urlVideo);
 
     const title = document.createElement( 'h3' );
-    h3.textContent = media.title;
+    title.textContent = media.title;
 
     const likes = document.createElement('div');
-    likes.textContent = `${media.likes}&nbsp;&#10084;`;
+    likes.innerHTML = `${media.likes}&nbsp;&#10084;`;
 
-    article.appendChild(img);
+    article.appendChild(video);
     article.appendChild(title);
     article.appendChild(likes);
 
-    return (article);
-    
+    return (article);    
 
 }
 

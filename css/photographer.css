@@ -6,7 +6,71 @@
     background-color: #FAFAFA;
     height: 300px;
     margin: 0 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 100px 50px;
+    margin-top: 25px;
 }
+
+.photograph-header h2 {
+    color: #DB8876;
+    font-size: 60px;
+}
+
+.photograph-header p:first-of-type {
+    color: #901C1C;
+    font-size: 23px;
+}
+
+.photograph-header p:last-of-type {
+    font-size: 17px;
+    margin-top: 25px;
+}
+
+.photograph-header img {
+    border-radius: 50%;
+    height: 200px;
+    width: 200px;
+    object-fit: cover;
+}
+
+.hourly-fee {
+    position: fixed;
+    bottom: 0;
+    right: 40px;
+    background-color: #DB8876;
+    padding: 20px 30px;
+    font-size: 25px;
+    font-weight: 700;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.media_section {
+    margin: 0 100px;
+}
+
+.media_section .order-by {
+
+}
+
+.media_section .order-by label {
+    display: flex;
+}
+
+.media_section .media-container article {
+    width: 33%;
+
+}
+
+.media_section .media-container article img {
+    border-radius: 5px;
+    width: 400px;
+    height: 400px;
+    object-fit: cover;
+}
+
 
 .contact_button {
     font-size: 20px;

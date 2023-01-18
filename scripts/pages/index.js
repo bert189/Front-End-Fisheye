@@ -15,7 +15,7 @@ function displayPhotographers(photographers) {
     const photographersSection = document.querySelector(".photographers_section");
 
     photographers.forEach((photographer) => {
-        const photographerCard = photographerFactory(photographer);
+        const photographerCard = photographerFactory(photographer, 'index');
         photographersSection.appendChild(photographerCard);
     });
 };
