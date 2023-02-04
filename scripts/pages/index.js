@@ -1,7 +1,7 @@
 // imports
 
 import { getAPI } from "../api/api.js";
-import { photographerFactory } from "../factories/photographer.js";
+import { photographerFactory } from "../factories/photographerFactory.js";
 
 
 //  url API
@@ -15,7 +15,8 @@ function displayPhotographers(photographers) {
     const photographersSection = document.querySelector(".photographers_section");
 
     photographers.forEach((photographer) => {
-        const photographerCard = photographerFactory(photographer, 'index');
+        photographer = {...photographer, page : 'index'};
+        const photographerCard = photographerFactory(photographer);
         photographersSection.appendChild(photographerCard);
     });
 };

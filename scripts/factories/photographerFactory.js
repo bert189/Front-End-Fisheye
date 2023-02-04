@@ -1,14 +1,7 @@
+// imports
 
-// création d'élement html avec attribut(s) et contenu textuel 
+import {createElement} from "./createElement.js";
 
-function createElement(tag, attributes, textContent) {
-    const element = document.createElement(tag);
-    for (const attribute in attributes) {
-        element.setAttribute(attribute, attributes[attribute]);
-    }
-    element.textContent = textContent;
-    return element;
-}
 
 // construction d'une card photographer (page index)
 
@@ -16,10 +9,10 @@ function getPhotographerCardDOM(photographer) {
 
     // object destructuring
     const { name, id, city, country, tagline, price, portrait } = photographer;
-    
+
     const a = createElement('a', { href: `photographer.html?id=${id}` });
     const article = createElement('article');
-    const img = createElement('img', { src: `assets/photographers/${portrait}` });
+    const img = createElement('img', { src: `assets/photographers/${portrait}` });    
     const h2 = createElement('h2', {}, name);
     const location = createElement('p', {}, `${city}, ${country}`);
     const catchPhrase = createElement('p', {}, tagline);
@@ -58,9 +51,9 @@ function getProfileCardsDOM(photographer) {
 
 // factory photographe
 
-export function photographerFactory(photographer, page) {
+export function photographerFactory(photographer) {
 
-    switch (page) {
+    switch (photographer.page) {
         case 'index':
             return getPhotographerCardDOM(photographer);    
         case 'photographer':
