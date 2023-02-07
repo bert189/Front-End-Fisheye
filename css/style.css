@@ -5,13 +5,13 @@ body {
     min-width: 1280px;
 }
 
-
 header {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     height: 90px;
+    padding-top: 10px;
 }
 
 h1 {
@@ -54,6 +54,7 @@ h1 {
     height: 200px;
     width: 200px;
     object-fit: cover;
+    overflow-clip-margin: unset;
     border-radius: 50%;
 }
 

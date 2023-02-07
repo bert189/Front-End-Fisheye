@@ -1,22 +1,7 @@
+// imports
+import { blurBg, clearBg } from "./blurBg.js";
+
 // fonctions HELPERS
-
-// flouter + rendre net l'arrière-plan d'une modale
-
-const header = document.querySelector('header');
-const main = document.querySelector('main');
-const likesFeeWrapper = document.querySelector(".likes-fee-wrapper");
-
-function blurBg() {
-    header.classList.add('blur');
-    main.classList.add('blur');
-    likesFeeWrapper.classList.add('blur');
-}
-
-function clearBg() {
-    header.classList.remove('blur');
-    main.classList.remove('blur');
-    likesFeeWrapper.classList.remove('blur');
-}
 
 // vider les champs du formumaire et messages d'erreurs
 
@@ -39,6 +24,9 @@ function clearInputs() {
 
 const modalContainer = document.getElementById("modal-container");
 const confirm = document.querySelector(".confirm");
+const contactButton = document.querySelector(".contact_button");
+const closeCross = document.querySelector(".close_cross");
+const closeButton = document.querySelector(".close_button");
 
 // au clic sur bouton "Contactez-moi"
 
@@ -50,6 +38,8 @@ function displayModal() {
     // effet background flou
     blurBg();
 }
+
+contactButton.addEventListener('click', displayModal);
 
 // au clic sur X et bouton "Fermer"
 
@@ -63,6 +53,9 @@ function closeModal() {
     // fermer la modale de confirmation d'envoi
     confirm.style.display = "none";
 }
+
+closeCross.addEventListener('click', closeModal);
+closeButton.addEventListener('click', closeModal);
 
 // TRAITEMENT DU FORMULAIRE
 
@@ -107,7 +100,7 @@ sendButton.addEventListener('click', function(event) {
 	}
     else {
 		email.classList.add('warning');
-		email.nextElementSibling.textContent = "L'email entré n'est pas valide";
+		email.nextElementSibling.textContent = "L'email n'est pas valide";
 		error = true;
 	}
     

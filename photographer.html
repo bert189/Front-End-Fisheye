@@ -5,7 +5,8 @@
 		<title>Fisheye - photographe </title>
 		<link rel="icon" type="image/png" href="assets/favicon.png">
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap">
-		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous"/>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 		<link rel="stylesheet" href="css/reset.css">
 		<link rel="stylesheet" href="css/style.css">
 		<link rel="stylesheet" href="css/photographer.css">
@@ -20,7 +21,7 @@
 		<main id="main">
 			<div class="photograph-header">
 				<div class="profile-photographer"></div>
-				<button class="button contact_button" onclick="displayModal()">Contactez-moi</button>
+				<button class="button contact_button">Contactez-moi</button>
 				<div class="portrait-photographer"></div>
 			</div>
 			<div class="media_section">
@@ -40,7 +41,7 @@
 			</div>
 		</main>
 		<div class="likes-fee-wrapper">
-			<div class="total-likes">{total likes}&nbsp;&#10084;</div>
+			<div class="total-likes"></div>
 			<div class="hourly-fee"></div>
 		</div>
 		<div id="modal-container">
@@ -48,7 +49,7 @@
 				<header>
 					<h2>Contactez-moi</h2>
 					<h4>{Nom photographe}</h4>
-					<img src="assets/icons/close.svg" onclick="closeModal()" />
+					<img src="assets/icons/close.svg" class="close_cross" />
 				</header>
 				<form>					
 					<label for="firstname">Prénom</label>
@@ -68,11 +69,21 @@
 				<div class="confirm">
 					<p>Votre message a bien été envoyé !</p>
 					<p class="response"></p>
-					<button class="button close_button" onclick="closeModal()">Fermer</button>
+					<button class="button close_button">Fermer</button>
 				</div>
 			</div>
 		</div>
+		<div id="lightbox-container">
+			<div class="lightbox">
+				<div class="media-title-container"></div>
+				<i class="fas fa-times"></i>
+				<i class="fas fa-chevron-left"></i>
+				<i class="fas fa-chevron-right"></i>
+			</div>
+		</div>
 		<script src="scripts/pages/photographer.js" type="module"></script>
-		<script src="scripts/utils/contactForm.js"></script>
+		<script src="scripts/utils/contactForm.js" type="module"></script>
+		<script src="scripts/utils/lightBox.js" type="module"></script>
+		<script src="scripts/utils/likes.js" type="module"></script>
 	</body>
 </html>

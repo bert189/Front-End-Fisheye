@@ -2,11 +2,11 @@
 
 import {createElement} from "./createElement.js";
 
-// offset top cadrage des images portrait
+// cadrage offset + haut des images orientées portrait
+// permet de voir les visages des personnes, en affichage carré
 
 function portraitImgOffsetTop(img) {
     if (img.naturalHeight > img.naturalWidth) {
-        console.log('yes')
         img.classList.add("offset-top");
     }
 }
@@ -17,11 +17,11 @@ function getImageCardDOM(media) {
 
     const urlImage = `assets/medias/${media.name}/${media.image}`;
     const article = createElement('article');
-    const img = createElement('img', { src: urlImage });
+    const img = createElement('img', { src: urlImage, class: "media"});
     const title = createElement('div', { class: "title-wrapper" });
     const h3 = createElement('h3', {}, media.title);
     const likes = createElement('div', { class: "likes" });
-    likes.innerHTML = `${media.likes}&nbsp;&#10084;`;
+    likes.innerHTML = `<span>${media.likes}</span><i class="fa-solid fa-heart"></i><i class="fa-solid fa-heart-circle-check display-none"></i>`;
 
     title.appendChild(h3);
     title.appendChild(likes);
@@ -41,11 +41,11 @@ function getVideoCardDOM(media) {
     
     const urlVideo = `assets/medias/${media.name}/${media.video}`;
     const article = createElement('article');
-    const video = createElement('video', { src: urlVideo, controls: true });
+    const video = createElement('video', { src: urlVideo, controls: true, class: "media" });
     const title = createElement('div', { class: "title-wrapper" });
     const h3 = createElement('h3', {}, media.title);
     const likes = createElement('div', { class: "likes" });
-    likes.innerHTML = `${media.likes}&nbsp;&#10084;`;
+    likes.innerHTML = `<span>${media.likes}</span><i class="fa-solid fa-heart"></i><i class="fa-solid fa-heart-circle-check display-none">`;
 
     title.appendChild(h3);
     title.appendChild(likes);

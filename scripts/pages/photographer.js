@@ -1,8 +1,10 @@
 // imports
 
 import { getAPI } from "../api/api.js";
-import { mediaFactory } from "../factories/mediaFactory.js"
 import { photographerFactory } from "../factories/photographerFactory.js";
+import { mediaFactory } from "../factories/mediaFactory.js";
+import { enableLightbox } from "../utils/lightbox.js";
+import { enableLikes} from "../utils/likes.js";
 
 
 //  url API
@@ -163,7 +165,13 @@ function sortMedias(medias, name) {
         swapOptions(option);
         
         //   5. réduire le dropdown en css
-        options.forEach(option => option.style.display = 'none');   
+        options.forEach(option => option.style.display = 'none');
+        
+        //   6. permettre l'affichage des medias dans modale lightbox
+        enableLightbox();
+
+        //   7. permettre la posibilité de "liker"
+        enableLikes();
         
     }))
     
@@ -193,8 +201,14 @@ async function init(photographerId) {
     // passer le nom pour du photographe pour l'url de son dossier medias
     displayMedias(sortByLikes(mediasPhotographer), photographer.name);
 
-    // Tri médias, va appeller displayMedias(), d'ou l'argument name
+    // tri médias, va appeller displayMedias(), d'ou l'argument name
     sortMedias(mediasPhotographer, photographer.name);
+    
+    // permettre l'affichage des medias dans modale lightbox
+    enableLightbox();
+
+    // permettre la possibilité de "liker"
+    enableLikes();
 
 }
 
