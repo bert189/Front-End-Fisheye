@@ -141,6 +141,12 @@
 
 .media_section .media {
     cursor: pointer;
+    transition-property: opacity;
+    transition-duration: 115ms;
+}
+
+.media_section .media:hover {
+    opacity: 0.87;
 }
 
 .media_section .medias-container article img {
@@ -201,6 +207,16 @@
     left: -3px;
 }
 
+.media_section .medias-container article .title-wrapper .likes i {
+    cursor: pointer;
+}
+
+.media_section .medias-container article .title-wrapper .likes i:hover {
+    opacity: 0.8;
+    transition-property: opacity;
+    transition-duration: 100ms;
+}
+
 
 /* MODALE CONTACT */
 
@@ -216,6 +232,8 @@
     border-radius: 5px;
     cursor: pointer;
     margin-right: 30px;
+    transition-property: background-color, color;
+    transition-duration: 150ms;
 }
 
 .contact_button:hover {
@@ -267,12 +285,12 @@
     top: 30px;
     right: 30px;
     transition-property: transform;
-    transition-duration: 250ms;
+    transition-duration: 150ms;
     z-index: 50;
 }
 
-.modal header img:hover {
-    transform: rotate(-90deg);
+.close_cross:hover {
+    transform: scale(1.05);
 }
 
 .modal header h2,
@@ -391,6 +409,13 @@ form textarea {
     top: 50%;
     font-size: 50px;
     cursor: pointer;
+    transition-property: transform, opacity;
+    transition-duration: 125ms;
+}
+
+.lightbox .fas:hover {
+    opacity: 0.92;
+    transform: scale(1.05);
 }
 
 .lightbox .fa-chevron-left {

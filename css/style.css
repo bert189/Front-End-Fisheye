@@ -23,7 +23,16 @@ h1 {
 .logo {
     height: 50px;
     margin-left: 100px;
+    transition: opacity, transform;
+    transition-duration: 150ms;
+
 }
+
+.logo:hover {
+    transform: scale(1.01);
+    opacity: 0.87;
+}
+
 
 .photographers_section {
     display: grid;
@@ -38,17 +47,18 @@ h1 {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    transition: opacity;
+    transition-duration: 150ms;
 }
 
 .photographers_section article:hover {
-    transition: opacity 200ms;
-    opacity: 0.8;
+    opacity: 0.85;
 }
 
-.photographers_section article:not(:hover) {
+/* .photographers_section article:not(:hover) {
     transition: opacity 200ms;
     opacity: 1;
-}
+} */
 
 .photographers_section article img {
     height: 200px;
