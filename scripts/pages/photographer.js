@@ -47,10 +47,20 @@ function displayPhotographer(datasPhotographer) {
 
 function displayMedias(medias, name) {
     const mediasContainer = document.querySelector(".medias-container");
+    const mediasNodeList = mediasContainer.querySelectorAll('article'); // NodeList
+    const existingMedias = Array.from(mediasNodeList);
 
     medias.forEach((media) => {
-        const mediaCard = mediaFactory({...media, name: name}); // spread operator
-        mediasContainer.appendChild(mediaCard);
+        const existingMediaCard = existingMedias.find(m => parseInt(m.id) === media.id);
+        // si l'article éxiste déjà, pas besoin de le recréer via la mediaFactory
+        // et surtout ça permet de conserver le statut 'liked' après tri
+        if (existingMediaCard) { // s'éxécute après un choix de tri
+            mediasContainer.appendChild(existingMediaCard);
+        }
+        else { // s'éxécute au lancement init()
+            const mediaCard = mediaFactory({...media, name: name}); // spread operator
+            mediasContainer.appendChild(mediaCard);
+        }
     });
 }
 
@@ -139,7 +149,7 @@ function sortMedias(medias, name) {
 
         let sortedMedias = [];
 
-        //   1. trier les images en fonction de l'option cliquée
+        // trier les images en fonction de l'option cliquée
         switch (option.textContent) {
             case 'Popularité':
                 sortedMedias = sortByLikes(medias);
@@ -154,37 +164,29 @@ function sortMedias(medias, name) {
                 null;
         }
 
-        //   2.effacer médias précedents
-        const mediasContainer = document.querySelector(".medias-container");
-        mediasContainer.innerHTML = "";
+        // afficher les médias dans l'ordre choisi
+        displayMedias(sortedMedias);
 
-        //   3. afficher les médias dans l'ordre de l'option choisie
-        displayMedias(sortedMedias, name);
-
-        //   4. inverser le texte des options
+        // inverser le texte des options
         swapOptions(option);
         
-        //   5. réduire le dropdown en css
+        // réduire le dropdown en css
         options.forEach(option => option.style.display = 'none');
-        
-        //   6. permettre l'affichage des medias dans modale lightbox
-        enableLightbox();
-
-        //   7. permettre la posibilité de "liker"
-        enableLikes();
-        
+                
     }))
     
 }
 
 
-// execution au chargement de la page :
+// execution au chargement de la page photographer.html?id=photographerId :
 //   1. récupération datas API
 //   2. constitution array photographe
 //   3. constitution array medias du photographe
 //   4. affichage datas profil photographe
 //   5. affichage medias du photographe
-//   6. mise en route de la fonction de tri
+//   6. autoriser la fonction de tri
+//   7. autoriser la fonction lightbox modale
+//   8. autoriser la fonction 'like'
 
 async function init(photographerId) {
     const {photographers, medias} = await getAPI(api_url);
@@ -201,8 +203,9 @@ async function init(photographerId) {
     // passer le nom pour du photographe pour l'url de son dossier medias
     displayMedias(sortByLikes(mediasPhotographer), photographer.name);
 
-    // tri médias, va appeller displayMedias(), d'ou l'argument name
-    sortMedias(mediasPhotographer, photographer.name);
+    // tri médias, va appeller displayMedias(),
+    // l'argument name n'est plus nécéssaire vu qu'on se servira des <article> média affichés
+    sortMedias(mediasPhotographer);
     
     // permettre l'affichage des medias dans modale lightbox
     enableLightbox();

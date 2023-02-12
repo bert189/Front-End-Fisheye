@@ -16,7 +16,7 @@ function portraitImgOffsetTop(img) {
 function getImageCardDOM(media) {
 
     const urlImage = `assets/medias/${media.name}/${media.image}`;
-    const article = createElement('article');
+    const article = createElement('article', {id: media.id}); // id afin de conserver l'article liké après tri 
     const img = createElement('img', { src: urlImage, class: "media"});
     const title = createElement('div', { class: "title-wrapper" });
     const h3 = createElement('h3', {}, media.title);
@@ -40,8 +40,8 @@ function getImageCardDOM(media) {
 function getVideoCardDOM(media) {
     
     const urlVideo = `assets/medias/${media.name}/${media.video}`;
-    const article = createElement('article');
-    const video = createElement('video', { src: urlVideo, controls: true, class: "media" });
+    const article = createElement('article', {id: media.id}); // id afin de conserver l'article liké après tri 
+    const video = createElement('video', { src: urlVideo, class: "media" });
     const title = createElement('div', { class: "title-wrapper" });
     const h3 = createElement('h3', {}, media.title);
     const likes = createElement('div', { class: "likes" });

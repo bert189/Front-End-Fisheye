@@ -14,26 +14,26 @@
 	<body>
 		<header>
 			<a href="index.html">
-				<img src="assets/images/logo.png" class="logo" />
+				<img src="assets/images/logo.png" class="logo" tabindex="1"/>
 			</a>			
 		</header>
 		<main id="main">
 			<div class="photograph-header">
 				<div class="profile-photographer"></div>
-				<button class="button contact_button">Contactez-moi</button>
+				<button class="button contact_button" tabindex="2">Contactez-moi</button>
 				<div class="portrait-photographer"></div>
 			</div>
 			<div class="media_section">
 				<div class="sort">
 					<div class="sort-by">Trier par</div>
-					<ul class="dropdown">
+					<ul class="dropdown" tabindex="3">
 						<li class="option">
 							<span class="selected">Popularité</span>							
 							<i class="fas fa-chevron-down"></i>
 							<i class="fas fa-chevron-up"></i>
 						</li>
-						<li class="option">Date</li>
-						<li class="option">Titre</li>
+						<li class="option" tabindex="4">Date</li>
+						<li class="option" tabindex="5">Titre</li>
 					</ul>					  
 				</div>
 				<div class="medias-container"></div>				
@@ -47,7 +47,7 @@
 			<div class="modal">
 				<header>
 					<h2>Contactez-moi</h2>
-					<h4>{Nom photographe}</h4>
+					<h4></h4>
 					<img src="assets/icons/close.svg" class="close_cross" />
 				</header>
 				<form>					
@@ -82,7 +82,5 @@
 		</div>
 		<script src="scripts/pages/photographer.js" type="module"></script>
 		<script src="scripts/utils/contactForm.js" type="module"></script>
-		<script src="scripts/utils/lightBox.js" type="module"></script>
-		<script src="scripts/utils/likes.js" type="module"></script>
 	</body>
 </html>
