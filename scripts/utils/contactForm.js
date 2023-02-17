@@ -1,9 +1,18 @@
 // imports
 import { blurBg, clearBg } from "./blurBg.js";
+import { disableScroll, enableScroll} from "./scroll.js";
 
-// fonctions HELPERS
 
-// vider les champs du formumaire et messages d'erreurs
+// TRAITEMENT DU FORMULAIRE
+
+const firstName = document.getElementById("firstname");
+const lastName = document.getElementById("lastname");
+const email = document.getElementById("email");
+const message = document.getElementById("message");
+
+const sendButton = document.querySelector(".send_button");
+
+// HELPER vider les champs du formumaire et messages d'erreurs
 
 const inputs = document.querySelectorAll('form input');
 const inputsArray = Array.from(inputs);
@@ -19,61 +28,13 @@ function clearInputs() {
     errors.forEach(error => error.textContent = "");
 }
 
+// fonction de traîtement du formulaire
 
-// DISPLAY MODALE
-
-const modalContainer = document.getElementById("modal-container");
-const confirm = document.querySelector(".confirm");
-const contactButton = document.querySelector(".contact_button");
-const closeCross = document.querySelector(".close_cross");
-const closeButton = document.querySelector(".close_button");
-
-// au clic sur bouton "Contactez-moi"
-
-function displayModal() {   
-    // ouverture modale 
-	modalContainer.style.display = "block";
-    // affichage du nom de photographe à contacter
-    document.querySelector('.modal h4').textContent = document.querySelector('.photograph-header h2').textContent;
-    // effet background flou
-    blurBg();
-}
-
-contactButton.addEventListener('click', displayModal);
-
-// au clic sur X et bouton "Fermer"
-
-function closeModal() {
-    // fermer modale
-    modalContainer.style.display = "none";
-    // rendre le background net
-    clearBg();
-    // effacer les champs du formulaire
-    clearInputs();
-    // fermer la modale de confirmation d'envoi
-    confirm.style.display = "none";
-}
-
-closeCross.addEventListener('click', closeModal);
-closeButton.addEventListener('click', closeModal);
-
-// TRAITEMENT DU FORMULAIRE
-
-const firstName = document.getElementById("firstname");
-const lastName = document.getElementById("lastname");
-const email = document.getElementById("email");
-const message = document.getElementById("message");
-
-const sendButton = document.querySelector(".send_button");
-
-// au clic sur bouton "envoyer"
-
-sendButton.addEventListener('click', function(event) {
-    event.preventDefault();
-
+function formProcessing() {
+    
     let newContact = {};
     let error = false;
-
+    
     // prénom
     if (/^[a-zA-Z]{1,}[- ']{0,1}[a-zA-Z]{1,}$/.test(firstName.value)) {
         newContact.firstName = firstName.value;
@@ -93,29 +54,29 @@ sendButton.addEventListener('click', function(event) {
 		lastName.nextElementSibling.textContent = "Nom incorrect";
 		error = true;
 	}
-
+    
     // email
     if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email.value)) {
-		newContact.email = email.value;
+        newContact.email = email.value;
 	}
     else {
-		email.classList.add('warning');
+        email.classList.add('warning');
 		email.nextElementSibling.textContent = "L'email n'est pas valide";
 		error = true;
 	}
     
     // message
-    if (textArea.value.trim()) {
-        newContact.message = textArea.value;
+    if (message.value.trim()) {
+        newContact.message = message.value;
     }
     else {
-        textArea.classList.add('warning');
-		textArea.nextElementSibling.textContent = "Vous devez entrer un message";
+        message.classList.add('warning');
+		message.nextElementSibling.textContent = "Vous devez entrer un message";
 		error = true;
 	}
-
+    
     // enlever signal d'erreur au clic sur un champs invalide
-
+    
     inputsArray.forEach(function(input) {
         input.addEventListener('focus', function() {
             input.classList.remove('warning');
@@ -123,16 +84,16 @@ sendButton.addEventListener('click', function(event) {
             error = false;
 	    });
     })
-
+    
     // envoi du message
-
+    
     if (error === false) {
         console.log('Données envoyées :');
         console.log(`prénom : ${newContact.firstName}`);
         console.log(`nom : ${newContact.lastName}`);
         console.log(`email : ${newContact.email}`);
         console.log(`message : ${newContact.message}`);
-
+        
         // affichage de confirmation d'envoi
         
         const namePhotographer = document.querySelector('.modal h4').textContent;
@@ -140,8 +101,123 @@ sendButton.addEventListener('click', function(event) {
         
         confirm.style.display = "flex";
         response.innerHTML = `${namePhotographer} vous répondra prochainement.` ;
-    }   
-    
+        preventTabOutConfirm();
+    }
+}
+
+
+// DISPLAY MODALE
+
+const modalContainer = document.getElementById("modal-container");
+const confirm = document.querySelector(".confirm");
+const contactButton = document.querySelector(".contact_button");
+const closeCross = document.querySelector(".close_cross");
+const closeButton = document.querySelector(".close_button");
+
+// HELPER navigation clavier, empêche l'utilisateur de sortir 'focus tabindex' de la modale
+
+function preventTabOutForm() {
+    // focus sur le premier champ tabindex de la modale
+    firstName.focus();
+    closeCross.addEventListener('keydown', function(event) {
+        // event.preventDefault();
+        if (event.key === "Tab" && event.shiftKey) {
+            sendButton.focus(); // bug : saute ce focus 
+        }            
+    })
+    sendButton.addEventListener('keydown', function(event) {
+        event.preventDefault();
+        if (event.key === "Tab") {
+            closeCross.focus();
+        }
+    })
+
+}
+
+function preventTabOutConfirm() {
+    // focus sur le bouton 'Fermer'
+    closeButton.focus();
+    closeButton.addEventListener('keydown', function(event) {
+        event.preventDefault();
+        if (event.key === "Tab" || (event.key === "Tab" && event.shiftKey)) {
+            closeCross.focus();
+        }
+    })
+    closeCross.addEventListener('keydown', function(event) {
+        event.preventDefault();
+        if (event.key === "Tab" || (event.key === "Tab" && event.shiftKey)) {
+            closeButton.focus();
+        }
+    })    
+}
+
+// au clic sur bouton "Contactez-moi"
+
+function displayModal() {   
+    // ouverture modale 
+	modalContainer.style.display = "block";
+    // affichage du nom de photographe à contacter
+    document.querySelector('.modal h4').textContent = document.querySelector('.photograph-header h2').textContent;
+    // effet background flou
+    blurBg();
+    // figer le scroll du background
+    disableScroll();
+    // contenir le focus sur la modale au keydown Tab
+    preventTabOutForm();
+}
+
+contactButton.addEventListener('click', displayModal);
+
+// au clic (+ au keydown 'Enter') sur X et bouton "Fermer" + keydown Escape
+
+function closeModal() {
+    // fermer modale
+    modalContainer.style.display = "none";
+    // rendre le background net
+    clearBg();
+    // effacer les champs du formulaire
+    clearInputs();
+    // fermer la modale de confirmation d'envoi
+    confirm.style.display = "none";
+    // permettre le scroll de la fenêtre
+    enableScroll();
+}
+
+closeCross.addEventListener('click', closeModal);
+closeButton.addEventListener('click', closeModal);
+
+closeCross.addEventListener('keydown', function(event) {
+    if (event.key === "Enter") {
+        closeModal();
+    }
+})
+
+closeButton.addEventListener('keydown', function(event) {
+    if (event.key === "Enter") {
+        closeModal();
+    }
+})
+
+window.addEventListener('keydown', function(event) {
+    if (event.key === "Escape") {
+        closeModal();
+    }
+})
+
+
+// au clic + keydown "Enter" sur bouton "envoyer" : traitement du formulaire
+
+sendButton.addEventListener('click', function(event) {
+    event.preventDefault();
+    formProcessing();
+
+});
+
+sendButton.addEventListener('keydown', function(event) {
+    if (event.key === "Enter") {
+        event.preventDefault();
+        formProcessing();    
+    }
 })
 
 

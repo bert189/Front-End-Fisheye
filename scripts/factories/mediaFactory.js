@@ -17,11 +17,13 @@ function getImageCardDOM(media) {
 
     const urlImage = `assets/medias/${media.name}/${media.image}`;
     const article = createElement('article', {id: media.id}); // id afin de conserver l'article liké après tri 
-    const img = createElement('img', { src: urlImage, class: "media"});
+    const img = createElement('img', { src: urlImage, class: "media", alt: `photo de ${media.title}`, tabindex: "0"});
     const title = createElement('div', { class: "title-wrapper" });
     const h3 = createElement('h3', {}, media.title);
     const likes = createElement('div', { class: "likes" });
-    likes.innerHTML = `<span>${media.likes}</span><i class="fa-solid fa-heart"></i><i class="fa-solid fa-heart-circle-check display-none"></i>`;
+    likes.innerHTML = `<span>${media.likes}</span>
+                        <i class="fa-solid fa-heart" tabindex="0"></i>
+                        <i class="fa-solid fa-heart-circle-check display-none" tabindex="0"></i>`;
 
     title.appendChild(h3);
     title.appendChild(likes);
@@ -41,11 +43,13 @@ function getVideoCardDOM(media) {
     
     const urlVideo = `assets/medias/${media.name}/${media.video}`;
     const article = createElement('article', {id: media.id}); // id afin de conserver l'article liké après tri 
-    const video = createElement('video', { src: urlVideo, class: "media" });
+    const video = createElement('video', { src: urlVideo, class: "media", alt: `video de ${media.title}`, tabindex: "0" });
     const title = createElement('div', { class: "title-wrapper" });
     const h3 = createElement('h3', {}, media.title);
     const likes = createElement('div', { class: "likes" });
-    likes.innerHTML = `<span>${media.likes}</span><i class="fa-solid fa-heart"></i><i class="fa-solid fa-heart-circle-check display-none">`;
+    likes.innerHTML = `<span>${media.likes}</span>
+                        <i class="fa-solid fa-heart" tabindex="0"></i>
+                        <i class="fa-solid fa-heart-circle-check display-none" tabindex="0">`;
 
     title.appendChild(h3);
     title.appendChild(likes);

@@ -67,7 +67,8 @@ function displayMedias(medias, name) {
 
 // TRI AFFICHAGE MEDIAS
 
-const options = document.querySelectorAll(".option:not(:first-of-type)");
+const options = document.querySelectorAll(".option");
+const possibleOptions = document.querySelectorAll(".option:not(:first-of-type)");
 
 // DROPDOWN : interactions et rendus visuels
 
@@ -79,13 +80,13 @@ const chevronUp = document.querySelector(".fa-chevron-up");
 // fonctions gérant le display du dropdown (et des chevrons)
 
 function displayOptions() {
-    options.forEach(option => option.style.display = 'flex');
+    possibleOptions.forEach(option => option.style.display = 'flex');
     chevronDown.style.display = 'none';
     chevronUp.style.display = 'block';
 }
 
 function closeOptions() {
-    options.forEach(option => option.style.display = 'none');
+    possibleOptions.forEach(option => option.style.display = 'none');
     chevronDown.style.display = 'block';
     chevronUp.style.display = 'none';
 }
@@ -98,12 +99,59 @@ dropdown.addEventListener("mouseleave", closeOptions);
 // réduction/ouverture du dropdown au clic sur l'option déjà selectionnée
 
 selectedOption.addEventListener('click', function() {
-
     if (chevronUp.style.display === 'block') {
         closeOptions();       
     } else {
         displayOptions();
     }
+});
+
+// ouverture + réduction du dropdown au clavier 
+
+selectedOption.addEventListener('keydown', function(event) {
+    if (event.key === "Enter") {
+        if (chevronUp.style.display === 'block') {
+            closeOptions();
+        } else {
+            displayOptions();
+        }
+    }
+})
+
+// navigation au clavier à l'intérieur du dropdown
+
+const lastOption = document.querySelector(".option:last-of-type");
+
+selectedOption.addEventListener('keydown', function(event) {
+    if (event.key === "Tab" && event.shiftKey) {
+        // event.preventDefault();
+        lastOption.focus(); // bug : saute ce focus
+    }
+})
+
+lastOption.addEventListener('keydown', function(event) {
+    if (event.key === "Tab") {
+        event.preventDefault();
+        selectedOption.focus();
+    }
+})
+
+const optionsArray = Array.from(options);
+let optionIndex = null;
+
+optionsArray.forEach(option => {
+    option.addEventListener('keydown', function(event) {
+        optionIndex = optionsArray.indexOf(option);
+        switch (event.key) {
+            case "Escape" :
+                closeOptions(); // réduction dropdown
+            case "ArrowDown" :
+                event.preventDefault();
+                optionsArray[(optionIndex + 1) % 3].focus();
+            case "ArrowUp" :
+                event.preventDefault(); // bug : pas réussi à déplacer le focus en sens inverse
+        }
+    })
 });
 
 
@@ -145,7 +193,7 @@ function swapOptions(option) {
 function sortMedias(medias, name) {
     
     // au clic sur une nouvelle option :
-    options.forEach((option) => option.addEventListener('click', function() {
+    possibleOptions.forEach((option) => option.addEventListener('click', function() {
 
         let sortedMedias = [];
 
@@ -171,9 +219,44 @@ function sortMedias(medias, name) {
         swapOptions(option);
         
         // réduire le dropdown en css
-        options.forEach(option => option.style.display = 'none');
-                
+        closeOptions();                
     }))
+
+    // à l'event keydown 'Enter' sur une nouvelle option :
+
+    possibleOptions.forEach((option) => option.addEventListener('keydown', function(event) {
+
+        if (event.key === "Enter") {
+
+            let sortedMedias = [];
+
+            // trier les images en fonction de l'option cliquée
+            switch (option.textContent) {
+                case 'Popularité':
+                    sortedMedias = sortByLikes(medias);
+                    break;
+                case 'Date':
+                    sortedMedias = sortByDates(medias);
+                    break;
+                case 'Titre':
+                    sortedMedias = sortByTitles(medias);
+                    break;
+                default:
+                    null;
+            }
+
+            // afficher les médias dans l'ordre choisi
+            displayMedias(sortedMedias);
+
+            // inverser le texte des options
+            swapOptions(option);
+            
+            // réduire le dropdown en css
+            closeOptions();
+        }  
+    }))
+
+
     
 }
 

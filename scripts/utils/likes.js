@@ -34,6 +34,19 @@ export function enableLikes() {
 
             renderTotalLikes();
         })
+
+        heart.addEventListener('keydown', function(event) {
+            if (event.key === "Enter") {
+
+                heart.classList.add("display-none");
+                heart.nextElementSibling.classList.remove("display-none");
+    
+                const like = heart.previousElementSibling;
+                like.textContent = parseInt(like.textContent) + 1;
+    
+                renderTotalLikes();
+            }
+        })
     })
 
     Array.from(heartsChecked).forEach(function(heartChecked) {
@@ -48,6 +61,20 @@ export function enableLikes() {
             like.textContent = parseInt(like.textContent) - 1;
 
             renderTotalLikes();
+        })
+
+        heartChecked.addEventListener('keydown', function(event) {
+            if (event.key === "Enter") {
+                const heart = heartChecked.previousElementSibling;
+
+                heartChecked.classList.add("display-none");
+                heart.classList.remove("display-none");
+                
+                const like = heart.previousElementSibling;
+                like.textContent = parseInt(like.textContent) - 1;
+    
+                renderTotalLikes();
+            }
         })
     })
 }

@@ -117,9 +117,12 @@
     transition-duration: 100ms;
 }
 
+.option:not(:first-of-type) {
+    border-top: 1px solid white;
+}
+
 .dropdown:hover .option:not(:first-of-type) {
     display: flex;
-    border-top: 1px solid white;
 }
 
 /* Médias */

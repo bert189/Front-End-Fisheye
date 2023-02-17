@@ -12,7 +12,7 @@ function getPhotographerCardDOM(photographer) {
 
     const a = createElement('a', { href: `photographer.html?id=${id}` });
     const article = createElement('article');
-    const img = createElement('img', { src: `assets/photographers/${portrait}` });    
+    const img = createElement('img', { src: `assets/photographers/${portrait}`, alt: `portrait de ${name}` });
     const h2 = createElement('h2', {}, name);
     const location = createElement('p', {}, `${city}, ${country}`);
     const catchPhrase = createElement('p', {}, tagline);
