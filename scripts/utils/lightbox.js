@@ -2,6 +2,7 @@
 import { createElement } from "../factories/createElement.js";
 import { blurBg, clearBg } from "./blurBg.js";
 import { disableScroll, enableScroll} from "./scroll.js";
+import { preventTabOut } from "./preventTabOut.js";
 
 
 // fonctions HELPERS
@@ -27,26 +28,11 @@ function lightboxMediaCardDOM(media) {
 }
 
 // navigation clavier 'focus tabindex' à l'intérieur de la lightbox
-    
+
+const lightbox = document.querySelector(".lightbox");    
 const closeX = document.querySelector(".fa-times");
 const leftChevron = document.querySelector(".fa-chevron-left");
 const rightChevron = document.querySelector(".fa-chevron-right");
-
-function preventTabOutLightbox() {
-    closeX.focus();        
-    closeX.addEventListener('keydown', function(event) {
-        // event.preventDefault();
-        if (event.key === "Tab" && event.shiftKey) {
-            rightChevron.focus(); // bug : saute ce focus
-        }
-    })
-    rightChevron.addEventListener('keydown', function(event) {
-        event.preventDefault();
-        if (event.key === "Tab") {
-            closeX.focus();
-        }
-    })
-}
 
 // ouvre la lightbox
 
@@ -55,7 +41,8 @@ function openLightbox(media) {
     lightboxMediaCardDOM(media);
     blurBg();
     disableScroll();
-    preventTabOutLightbox();
+    closeX.focus();
+    preventTabOut(lightbox);
 }
 
 // ferme la lightbox
@@ -65,6 +52,7 @@ function closeLightbox() {
     mediaTitleContainer.innerHTML = "";
     clearBg();
     enableScroll();
+    document.querySelector('.contact_button').focus(); // choix temporaire à défaut de mieux
 }
 
 // update de l'affichage du media
@@ -72,6 +60,7 @@ function closeLightbox() {
 function updateLightbox(media) {
     mediaTitleContainer.innerHTML = "";
     lightboxMediaCardDOM(media);
+    preventTabOut(lightbox); // relancer pour l'exception video tabindex
 }
 
 // function export de mise en route de la lightbox
@@ -153,24 +142,31 @@ export function enableLightbox() {
         }
     })
     
-    // autre touches actives pour navigation clavier lightbox ouverte
+    // autre touches actives pour navigation clavier lightbox ouverte   
 
-    window.addEventListener('keydown', function(event) {
+    lightbox.addEventListener('keydown', function(event) {
 
         if (event.key === "Escape") {
-            closeLightbox();
+            if (lightboxContainer.style.display === "block") {
+                closeLightbox();
+            }                
         }
 
         if (event.key === "ArrowLeft") {
-            previousMedia();
+            if (lightboxContainer.style.display === "block") {
+                previousMedia();
+            } 
         }
 
         if (event.key === "ArrowRight" || event.key === "Spacebar" || event.key === " ") {
-            event.preventDefault();
-            nextMedia();
+            if (lightboxContainer.style.display === "block") {
+                event.preventDefault();
+                nextMedia();
+            } 
         }
 
     })
+ 
 }
 
 

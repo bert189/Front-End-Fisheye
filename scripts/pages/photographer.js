@@ -4,7 +4,8 @@ import { getAPI } from "../api/api.js";
 import { photographerFactory } from "../factories/photographerFactory.js";
 import { mediaFactory } from "../factories/mediaFactory.js";
 import { enableLightbox } from "../utils/lightbox.js";
-import { enableLikes} from "../utils/likes.js";
+import { enableLikes } from "../utils/likes.js";
+import { preventTabOut } from "../utils/preventTabOut.js";
 
 
 //  url API
@@ -83,6 +84,7 @@ function displayOptions() {
     possibleOptions.forEach(option => option.style.display = 'flex');
     chevronDown.style.display = 'none';
     chevronUp.style.display = 'block';
+    preventTabOut(dropdown);
 }
 
 function closeOptions() {
@@ -120,21 +122,27 @@ selectedOption.addEventListener('keydown', function(event) {
 
 // navigation au clavier à l'intérieur du dropdown
 
-const lastOption = document.querySelector(".option:last-of-type");
+// const lastOption = document.querySelector(".option:last-of-type");
 
-selectedOption.addEventListener('keydown', function(event) {
-    if (event.key === "Tab" && event.shiftKey) {
-        // event.preventDefault();
-        lastOption.focus(); // bug : saute ce focus
-    }
-})
+// selectedOption.addEventListener('keydown', function(event) {    
+//     if (event.key === "Tab" && !event.shiftKey) {
+//         selectedOption.nextElementSibling.focus;     
+//     }
+//     else if (event.key === "Tab" && event.shiftKey) {
+//         event.preventDefault();        
+//         lastOption.focus();
+//     }
+// })
 
-lastOption.addEventListener('keydown', function(event) {
-    if (event.key === "Tab") {
-        event.preventDefault();
-        selectedOption.focus();
-    }
-})
+// lastOption.addEventListener('keydown', function(event) {
+//     if (event.key === "Tab" && !event.shiftKey) {
+//         event.preventDefault();    
+//         selectedOption.focus();
+//     }
+//     else if (event.key ==="Tab" && event.shiftKey) {
+//         lastOption.previousElementSibling.focus;
+//     }
+// })
 
 const optionsArray = Array.from(options);
 let optionIndex = null;
@@ -145,11 +153,15 @@ optionsArray.forEach(option => {
         switch (event.key) {
             case "Escape" :
                 closeOptions(); // réduction dropdown
+                break;
             case "ArrowDown" :
                 event.preventDefault();
-                optionsArray[(optionIndex + 1) % 3].focus();
+                optionsArray[(optionIndex + 1) % optionsArray.length].focus();
+                break;
             case "ArrowUp" :
-                event.preventDefault(); // bug : pas réussi à déplacer le focus en sens inverse
+                event.preventDefault(); 
+                optionsArray[(optionIndex + (optionsArray.length - 1)) % optionsArray.length].focus(); // sens inverse
+                break;
         }
     })
 });
@@ -190,7 +202,7 @@ function swapOptions(option) {
 
 // actions déclenchées par le clic sur une option
 
-function sortMedias(medias, name) {
+function sortMedias(medias) {
     
     // au clic sur une nouvelle option :
     possibleOptions.forEach((option) => option.addEventListener('click', function() {

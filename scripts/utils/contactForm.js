@@ -1,6 +1,7 @@
 // imports
 import { blurBg, clearBg } from "./blurBg.js";
 import { disableScroll, enableScroll} from "./scroll.js";
+import { preventTabOut } from "./preventTabOut.js";
 
 
 // TRAITEMENT DU FORMULAIRE
@@ -116,24 +117,6 @@ const closeButton = document.querySelector(".close_button");
 
 // HELPER navigation clavier, empêche l'utilisateur de sortir 'focus tabindex' de la modale
 
-function preventTabOutForm() {
-    // focus sur le premier champ tabindex de la modale
-    firstName.focus();
-    closeCross.addEventListener('keydown', function(event) {
-        // event.preventDefault();
-        if (event.key === "Tab" && event.shiftKey) {
-            sendButton.focus(); // bug : saute ce focus 
-        }            
-    })
-    sendButton.addEventListener('keydown', function(event) {
-        event.preventDefault();
-        if (event.key === "Tab") {
-            closeCross.focus();
-        }
-    })
-
-}
-
 function preventTabOutConfirm() {
     // focus sur le bouton 'Fermer'
     closeButton.focus();
@@ -153,6 +136,8 @@ function preventTabOutConfirm() {
 
 // au clic sur bouton "Contactez-moi"
 
+const modal = document.querySelector(".modal");
+
 function displayModal() {   
     // ouverture modale 
 	modalContainer.style.display = "block";
@@ -163,7 +148,9 @@ function displayModal() {
     // figer le scroll du background
     disableScroll();
     // contenir le focus sur la modale au keydown Tab
-    preventTabOutForm();
+    preventTabOut(modal);
+    // focus sur le premier champ tabindex de la modale
+    firstName.focus();
 }
 
 contactButton.addEventListener('click', displayModal);
@@ -181,6 +168,8 @@ function closeModal() {
     confirm.style.display = "none";
     // permettre le scroll de la fenêtre
     enableScroll();
+    // laisser le focus sur le bouton de contact
+    contactButton.focus();
 }
 
 closeCross.addEventListener('click', closeModal);
