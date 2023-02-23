@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 	<head>
 		<meta charset="utf-8">
 		<title>Fisheye - photographe </title>
@@ -14,41 +14,41 @@
 	<body>
 		<header>
 			<a href="index.html">
-				<img src="assets/images/logo.png" class="logo" alt="logo Fisheye" role="lien vers la page d'accueil"/>
+				<img src="assets/images/logo.png" class="logo" alt="logo Fisheye" role="link" aria-label="lien vers la page d'accueil"/>
 			</a>			
 		</header>
 		<main id="main">
 			<div class="photograph-header">
 				<div class="profile-photographer"></div>
-				<button class="button contact_button" tabindex="0">Contactez-moi</button>
+				<button class="button contact_button" aria-label="ouvre le formulaire de contact" tabindex="0">Contactez-moi</button>
 				<div class="portrait-photographer"></div>
 			</div>
 			<div class="media_section">
 				<div class="sort">
 					<div class="sort-by">Trier par</div>
-					<ul class="dropdown">
-						<li class="option" tabindex="0">
+					<ul class="dropdown" role="listbox" aria-haspopup="true" aria-label="menu déroulant proposant différentes options d'ordre d'affichage des médias">
+						<li class="option" role="button" aria-label="cliquer affiche les medias par popularité" tabindex="0">
 							<span class="selected">Popularité</span>							
 							<i class="fas fa-chevron-down"></i>
 							<i class="fas fa-chevron-up"></i>
 						</li>
-						<li class="option" tabindex="0">Date</li>
-						<li class="option" tabindex="0">Titre</li>
+						<li class="option" role="button" aria-label="cliquer affiche les medias par date" aria-hidden="true" tabindex="0">Date</li>
+						<li class="option" role="button" aria-label="cliquer affiche les medias par nom" aria-hidden="true" tabindex="0">Titre</li>
 					</ul>					  
 				</div>
-				<div class="medias-container"></div>				
+				<div class="medias-container" role="list"></div>				
 			</div>
 		</main>
 		<div class="likes-fee-wrapper">
 			<div class="total-likes"></div>
-			<div class="hourly-fee"></div>
+			<div class="daily-fee" aria-label="tarif journalier"></div>
 		</div>
-		<div id="modal-container">
+		<div id="modal-container" aria-hidden=true>
 			<div class="modal">
 				<header>
-					<h2>Contactez-moi</h2>
+					<h3>Contactez-moi</h3>
 					<h4></h4>
-					<img src="assets/icons/close.svg" class="close_cross" tabindex="0"/>
+					<img src="assets/icons/close.svg" class="close_cross" alt="croix fermer" aria-label="cliquer ferme la modale de contact" tabindex="0"/>
 				</header>
 				<form>					
 					<label for="firstname">Prénom</label>

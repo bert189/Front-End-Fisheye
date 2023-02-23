@@ -39,9 +39,8 @@ function displayPhotographer(datasPhotographer) {
     const portraitPhotographer = document.querySelector('.portrait-photographer');
     portraitPhotographer.appendChild(img);
         
-    const hourlyFee = document.querySelector('.hourly-fee');
-    hourlyFee.appendChild(fee);
-
+    const dailyFee = document.querySelector('.daily-fee');
+    dailyFee.appendChild(fee);
 }
 
 // boucle d'affichage des médias
@@ -54,7 +53,7 @@ function displayMedias(medias, name) {
     medias.forEach((media) => {
         const existingMediaCard = existingMedias.find(m => parseInt(m.id) === media.id);
         // si l'article éxiste déjà, pas besoin de le recréer via la mediaFactory
-        // et surtout ça permet de conserver le statut 'liked' après tri
+        // et SURTOUT ça permet de conserver le statut 'liked' après tri
         if (existingMediaCard) { // s'éxécute après un choix de tri
             mediasContainer.appendChild(existingMediaCard);
         }
@@ -81,14 +80,22 @@ const chevronUp = document.querySelector(".fa-chevron-up");
 // fonctions gérant le display du dropdown (et des chevrons)
 
 function displayOptions() {
-    possibleOptions.forEach(option => option.style.display = 'flex');
+    possibleOptions.forEach(function(option) {
+        option.style.display = 'flex';
+        option.setAttribute('aria-hidden', "false");
+        option.setAttribute('aria-expanded', "true");
+    });
     chevronDown.style.display = 'none';
     chevronUp.style.display = 'block';
-    preventTabOut(dropdown);
+    preventTabOut(dropdown); // navigation par tabindex
 }
 
 function closeOptions() {
-    possibleOptions.forEach(option => option.style.display = 'none');
+    possibleOptions.forEach(function(option) {
+        option.style.display = 'none';
+        option.setAttribute('aria-hidden', "true");
+        option.setAttribute('aria-expanded', "false");
+    });
     chevronDown.style.display = 'block';
     chevronUp.style.display = 'none';
 }
@@ -120,29 +127,8 @@ selectedOption.addEventListener('keydown', function(event) {
     }
 })
 
+
 // navigation au clavier à l'intérieur du dropdown
-
-// const lastOption = document.querySelector(".option:last-of-type");
-
-// selectedOption.addEventListener('keydown', function(event) {    
-//     if (event.key === "Tab" && !event.shiftKey) {
-//         selectedOption.nextElementSibling.focus;     
-//     }
-//     else if (event.key === "Tab" && event.shiftKey) {
-//         event.preventDefault();        
-//         lastOption.focus();
-//     }
-// })
-
-// lastOption.addEventListener('keydown', function(event) {
-//     if (event.key === "Tab" && !event.shiftKey) {
-//         event.preventDefault();    
-//         selectedOption.focus();
-//     }
-//     else if (event.key ==="Tab" && event.shiftKey) {
-//         lastOption.previousElementSibling.focus;
-//     }
-// })
 
 const optionsArray = Array.from(options);
 let optionIndex = null;

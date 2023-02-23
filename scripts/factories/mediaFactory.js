@@ -16,15 +16,19 @@ function portraitImgOffsetTop(img) {
 function getImageCardDOM(media) {
 
     const urlImage = `assets/medias/${media.name}/${media.image}`;
-    const article = createElement('article', {id: media.id}); // id afin de conserver l'article liké après tri 
-    const img = createElement('img', { src: urlImage, class: "media", alt: `photo de ${media.title}`, tabindex: "0"});
+    const article = createElement('article', {id: media.id, role: "listitem"}); // id afin de conserver l'article liké après tri 
+    const img = createElement('img', { src: urlImage, class: "media", alt: `photo de ${media.title}`, 'aria-label': 'cliquer pour agrandir', tabindex: "0"});
     const title = createElement('div', { class: "title-wrapper" });
     const h3 = createElement('h3', {}, media.title);
     const likes = createElement('div', { class: "likes" });
-    likes.innerHTML = `<span>${media.likes}</span>
-                        <i class="fa-solid fa-heart" tabindex="0"></i>
-                        <i class="fa-solid fa-heart-circle-check display-none" tabindex="0"></i>`;
+    const span = createElement('span', {'aria-label': "nombre de likes pour cette photo"}, `${media.likes}`);
+    const heart = createElement('i', {class: "fa-solid fa-heart", role: "button", 'aria-label': "cliquer pour ajouter votre like", tabindex: "0"});
+    const heartChecked = createElement('i', {class: "fa-solid fa-heart-circle-check display-none", role: "button", 'aria-label': "cliquer pour retirer votre like", tabindex: "0"});
 
+    likes.appendChild(span);
+    likes.appendChild(heart);
+    likes.appendChild(heartChecked);
+    
     title.appendChild(h3);
     title.appendChild(likes);
 
@@ -42,15 +46,19 @@ function getImageCardDOM(media) {
 function getVideoCardDOM(media) {
     
     const urlVideo = `assets/medias/${media.name}/${media.video}`;
-    const article = createElement('article', {id: media.id}); // id afin de conserver l'article liké après tri 
-    const video = createElement('video', { src: urlVideo, class: "media", alt: `video de ${media.title}`, tabindex: "0" });
+    const article = createElement('article', {id: media.id, role: "listitem"}); // id afin de conserver l'article liké après tri 
+    const video = createElement('video', { src: urlVideo, class: "media", alt: `video de ${media.title}`, 'aria-label': 'cliquer pour agrandir', tabindex: "0" });
     const title = createElement('div', { class: "title-wrapper" });
     const h3 = createElement('h3', {}, media.title);
     const likes = createElement('div', { class: "likes" });
-    likes.innerHTML = `<span>${media.likes}</span>
-                        <i class="fa-solid fa-heart" tabindex="0"></i>
-                        <i class="fa-solid fa-heart-circle-check display-none" tabindex="0">`;
+    const span = createElement('span', {'aria-label': "nombre de likes pour cette vidéo"}, `${media.likes}`);
+    const heart = createElement('i', {class: "fa-solid fa-heart", role: "button", 'aria-label': "cliquer pour ajouter votre like", tabindex: "0"});
+    const heartChecked = createElement('i', {class: "fa-solid fa-heart-circle-check display-none", role: "button", 'aria-label': "cliquer pour retirer votre like", tabindex: "0"});
 
+    likes.appendChild(span);
+    likes.appendChild(heart);
+    likes.appendChild(heartChecked);
+   
     title.appendChild(h3);
     title.appendChild(likes);
 
