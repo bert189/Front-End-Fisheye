@@ -15,6 +15,8 @@ const sendButton = document.querySelector(".send_button");
 
 // HELPER vider les champs du formumaire et messages d'erreurs
 
+const modalHeader = document.querySelector('.modal header');
+const modalForm = document.querySelector('.modal form');
 const inputs = document.querySelectorAll('form input');
 const inputsArray = Array.from(inputs);
 const textArea = document.querySelector('form textarea');
@@ -100,7 +102,12 @@ function formProcessing() {
         const namePhotographer = document.querySelector('.modal h4').textContent;
         const response = document.querySelector(".response");
         
+        modalHeader.setAttribute('aria-hidden', 'thru');
+        modalForm.setAttribute('aria-hidden', 'thru');
+
         confirm.style.display = "flex";
+        confirm.setAttribute('aria-hidden', 'false');
+
         response.innerHTML = `${namePhotographer} vous répondra prochainement.` ;
         preventTabOutConfirm();
     }
@@ -115,7 +122,7 @@ const contactButton = document.querySelector(".contact_button");
 const closeCross = document.querySelector(".close_cross");
 const closeButton = document.querySelector(".close_button");
 
-// HELPER navigation clavier, empêche l'utilisateur de sortir 'focus tabindex' de la modale
+// navigation clavier, empêche l'utilisateur de sortir 'focus tabindex' de la modale confirmation
 
 function preventTabOutConfirm() {
     // focus sur le bouton 'Fermer'
@@ -141,6 +148,9 @@ const modal = document.querySelector(".modal");
 function displayModal() {   
     // ouverture modale 
 	modalContainer.style.display = "block";
+    modalContainer.setAttribute('aria-hidden', 'false');
+    modalHeader.setAttribute('aria-hidden', 'false');
+    modalForm.setAttribute('aria-hidden', 'false');
     // affichage du nom de photographe à contacter
     document.querySelector('.modal h4').textContent = document.querySelector('.photograph-header h2').textContent;
     // effet background flou
@@ -160,6 +170,8 @@ contactButton.addEventListener('click', displayModal);
 function closeModal() {
     // fermer modale
     modalContainer.style.display = "none";
+    modalContainer.setAttribute('aria-hidden', 'thru');
+    confirm.setAttribute('aria-hidden', 'thru');
     // rendre le background net
     clearBg();
     // effacer les champs du formulaire

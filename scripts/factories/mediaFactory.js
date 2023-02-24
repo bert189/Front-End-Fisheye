@@ -17,7 +17,7 @@ function getImageCardDOM(media) {
 
     const urlImage = `assets/medias/${media.name}/${media.image}`;
     const article = createElement('article', {id: media.id, role: "listitem"}); // id afin de conserver l'article liké après tri 
-    const img = createElement('img', { src: urlImage, class: "media", alt: `photo de ${media.title}`, 'aria-label': 'cliquer pour agrandir', tabindex: "0"});
+    const img = createElement('img', { src: urlImage, class: "media", alt: `photo de ${media.title}`, role: 'link', 'aria-label': 'cliquer pour agrandir', tabindex: "0"});
     const title = createElement('div', { class: "title-wrapper" });
     const h3 = createElement('h3', {}, media.title);
     const likes = createElement('div', { class: "likes" });
@@ -47,7 +47,7 @@ function getVideoCardDOM(media) {
     
     const urlVideo = `assets/medias/${media.name}/${media.video}`;
     const article = createElement('article', {id: media.id, role: "listitem"}); // id afin de conserver l'article liké après tri 
-    const video = createElement('video', { src: urlVideo, class: "media", alt: `video de ${media.title}`, 'aria-label': 'cliquer pour agrandir', tabindex: "0" });
+    const video = createElement('video', { src: urlVideo, class: "media", alt: `video de ${media.title}`, role: 'link', 'aria-label': 'cliquer pour agrandir', tabindex: "0" });
     const title = createElement('div', { class: "title-wrapper" });
     const h3 = createElement('h3', {}, media.title);
     const likes = createElement('div', { class: "likes" });

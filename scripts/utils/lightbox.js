@@ -12,10 +12,10 @@ const mediaTitleContainer = document.querySelector(".media-title-container");
 
 function createMediaLightbox(media) {
     if (media.nodeName === "IMG") {
-        return createElement('img', {src: media.src, class: "media-lightbox"});
+        return createElement('img', {src: media.src, class: "media-lightbox", alt: media.alt, 'aria-label': "vue agrandie de la photo"});
     }
     else {
-        return createElement('video', {src: media.src, controls: true, class: "media-lightbox", tabindex: "0"});
+        return createElement('video', {src: media.src, controls: true, class: "media-lightbox", alt: media.alt, 'aria-label': "vue agrandie de la video", tabindex: "0"});
     }
 }
 
@@ -38,6 +38,7 @@ const rightChevron = document.querySelector(".fa-chevron-right");
 
 function openLightbox(media) {
     lightboxContainer.style.display = 'block';
+    lightboxContainer.setAttribute('aria-hidden', 'false');
     lightboxMediaCardDOM(media);
     blurBg();
     disableScroll();
@@ -49,6 +50,7 @@ function openLightbox(media) {
 
 function closeLightbox() {
     lightboxContainer.style.display = 'none';
+    lightboxContainer.setAttribute('aria-hidden', 'true');
     mediaTitleContainer.innerHTML = "";
     clearBg();
     enableScroll();
