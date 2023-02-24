@@ -7,74 +7,74 @@ const totalLikes = document.querySelector(".total-likes");
 
 function renderTotalLikes() {
 
-    let sumLikes = 0;
+	let sumLikes = 0;
 
-    Array.from(likes).forEach(function(like) {
-        sumLikes += parseInt(like.textContent);
-    })
+	Array.from(likes).forEach(function(like) {
+		sumLikes += parseInt(like.textContent);
+	});
 
-    totalLikes.innerHTML = `${sumLikes}&nbsp;<i class="fa-solid fa-heart"></i>`;
+	totalLikes.innerHTML = `${sumLikes}&nbsp;<i class="fa-solid fa-heart"></i>`;
 }
 
 // fonctionnement du système de Likes
 
 export function enableLikes() {    
 
-    renderTotalLikes();
+	renderTotalLikes();
 
-    Array.from(hearts).forEach(function(heart) {   
+	Array.from(hearts).forEach(function(heart) {   
         
-        heart.addEventListener('click', function() {
+		heart.addEventListener("click", function() {
 
-            heart.classList.add("display-none");
-            heart.nextElementSibling.classList.remove("display-none");
+			heart.classList.add("display-none");
+			heart.nextElementSibling.classList.remove("display-none");
 
-            const like = heart.previousElementSibling;
-            like.textContent = parseInt(like.textContent) + 1;
+			const like = heart.previousElementSibling;
+			like.textContent = parseInt(like.textContent) + 1;
 
-            renderTotalLikes();
-        })
+			renderTotalLikes();
+		});
 
-        heart.addEventListener('keydown', function(event) {
-            if (event.key === "Enter") {
+		heart.addEventListener("keydown", function(event) {
+			if (event.key === "Enter") {
 
-                heart.classList.add("display-none");
-                heart.nextElementSibling.classList.remove("display-none");
+				heart.classList.add("display-none");
+				heart.nextElementSibling.classList.remove("display-none");
     
-                const like = heart.previousElementSibling;
-                like.textContent = parseInt(like.textContent) + 1;
+				const like = heart.previousElementSibling;
+				like.textContent = parseInt(like.textContent) + 1;
     
-                renderTotalLikes();
-            }
-        })
-    })
+				renderTotalLikes();
+			}
+		});
+	});
 
-    Array.from(heartsChecked).forEach(function(heartChecked) {
+	Array.from(heartsChecked).forEach(function(heartChecked) {
 
-        heartChecked.addEventListener('click', function() {
-            const heart = heartChecked.previousElementSibling;
+		heartChecked.addEventListener("click", function() {
+			const heart = heartChecked.previousElementSibling;
 
-            heartChecked.classList.add("display-none");
-            heart.classList.remove("display-none");
+			heartChecked.classList.add("display-none");
+			heart.classList.remove("display-none");
             
-            const like = heart.previousElementSibling;
-            like.textContent = parseInt(like.textContent) - 1;
+			const like = heart.previousElementSibling;
+			like.textContent = parseInt(like.textContent) - 1;
 
-            renderTotalLikes();
-        })
+			renderTotalLikes();
+		});
 
-        heartChecked.addEventListener('keydown', function(event) {
-            if (event.key === "Enter") {
-                const heart = heartChecked.previousElementSibling;
+		heartChecked.addEventListener("keydown", function(event) {
+			if (event.key === "Enter") {
+				const heart = heartChecked.previousElementSibling;
 
-                heartChecked.classList.add("display-none");
-                heart.classList.remove("display-none");
+				heartChecked.classList.add("display-none");
+				heart.classList.remove("display-none");
                 
-                const like = heart.previousElementSibling;
-                like.textContent = parseInt(like.textContent) - 1;
+				const like = heart.previousElementSibling;
+				like.textContent = parseInt(like.textContent) - 1;
     
-                renderTotalLikes();
-            }
-        })
-    })
+				renderTotalLikes();
+			}
+		});
+	});
 }

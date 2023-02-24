@@ -12,14 +12,14 @@ const api_url = "data/photographers.json";
 // boucle l'affichage des cards photographe
 
 function displayPhotographers(photographers) {
-    const photographersSection = document.querySelector(".photographers_section");
+	const photographersSection = document.querySelector(".photographers_section");
 
-    photographers.forEach((photographer) => {
-        photographer = {...photographer, page : 'index'};
-        const photographerCard = photographerFactory(photographer);
-        photographersSection.appendChild(photographerCard);
-    });
-};
+	photographers.forEach((photographer) => {
+		photographer = {...photographer, page : "index"};
+		const photographerCard = photographerFactory(photographer);
+		photographersSection.appendChild(photographerCard);
+	});
+}
 
 
 // init() s'execute au chargement de la page :
@@ -28,9 +28,9 @@ function displayPhotographers(photographers) {
 //   3. affichage photographes
 
 async function init() {
-    const data = await getAPI(api_url);
-    const photographers = await data.photographers;
-    displayPhotographers(photographers);
+	const data = await getAPI(api_url);
+	const photographers = await data.photographers;
+	displayPhotographers(photographers);
 }
 
 init();
