@@ -45,6 +45,7 @@ function formProcessing() {
 	else {
 		firstName.classList.add("warning");
 		firstName.nextElementSibling.textContent = "Prénom incorrect";
+		firstName.setAttribute("aria-invalid", "thru");
 		error = true;
 	}  
     
@@ -55,6 +56,7 @@ function formProcessing() {
 	else {
 		lastName.classList.add("warning");
 		lastName.nextElementSibling.textContent = "Nom incorrect";
+		lastName.setAttribute("aria-invalid", "thru");
 		error = true;
 	}
     
@@ -65,6 +67,7 @@ function formProcessing() {
 	else {
 		email.classList.add("warning");
 		email.nextElementSibling.textContent = "L'email n'est pas valide";
+		email.setAttribute("aria-invalid", "thru");
 		error = true;
 	}
     
@@ -75,6 +78,7 @@ function formProcessing() {
 	else {
 		message.classList.add("warning");
 		message.nextElementSibling.textContent = "Vous devez entrer un message";
+		message.setAttribute("aria-invalid", "thru");
 		error = true;
 	}
     
@@ -84,6 +88,7 @@ function formProcessing() {
 		input.addEventListener("focus", function() {
 			input.classList.remove("warning");
 			input.nextElementSibling.textContent = "";
+			input.setAttribute("aria-invalid", "false");
 			error = false;
 		});
 	});
