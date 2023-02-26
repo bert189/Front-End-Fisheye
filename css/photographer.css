@@ -152,7 +152,8 @@
     opacity: 0.87;
 }
 
-.media_section .medias-container article img {
+.media_section .medias-container article img,
+.media_section .medias-container article video {
     border-radius: 5px;
     width: 100%;
     height: calc((100vw - 200px) * 0.3);
@@ -162,12 +163,6 @@
 
 .offset-top {
     object-position: 0% 35%;
-}
-
-.media_section .medias-container article video {
-    border-radius: 5px;
-    width: 100%;
-    height: calc((100vw - 200px) * 0.3);
 }
 
 .media_section .medias-container article .title-wrapper {

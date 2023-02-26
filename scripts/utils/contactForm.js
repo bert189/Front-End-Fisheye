@@ -2,6 +2,7 @@
 import { blurBg, clearBg } from "./blurBg.js";
 import { disableScroll, enableScroll} from "./scroll.js";
 import { preventTabOut } from "./preventTabOut.js";
+import { createElement } from "../factories/createElement.js";
 
 
 // TRAITEMENT DU FORMULAIRE
@@ -104,12 +105,10 @@ function formProcessing() {
         
 		// affichage de confirmation d'envoi
         
+		// const namePhotographer = document.querySelector(".modal h4").textContent;
 		const namePhotographer = document.querySelector(".modal h4").textContent;
 		const response = document.querySelector(".response");
         
-		// modalHeader.setAttribute("aria-hidden", "thru");
-		// modalForm.setAttribute("aria-hidden", "thru");
-
 		modalHeader.style.display = "none";
 		modalForm.style.display = "none";
 
@@ -131,6 +130,7 @@ const closeCross = document.querySelector(".close_cross");
 const closeButton = document.querySelector(".close_button");
 
 // navigation clavier, empêche l'utilisateur de sortir 'focus tabindex' de la modale confirmation
+
 
 function preventTabOutConfirm() {
 	// focus sur le bouton 'Fermer'
@@ -158,7 +158,9 @@ function displayModal() {
 	modalContainer.style.display = "block";
 	modalContainer.setAttribute("aria-hidden", "false");
 	// affichage du nom de photographe à contacter
-	document.querySelector(".modal h4").textContent = document.querySelector(".photograph-header h2").textContent;
+	const namePhotographer = document.querySelector(".photograph-header h2").textContent;
+	const h4 = createElement("h4", {}, namePhotographer);
+	modalHeader.appendChild(h4);
 	// effet background flou
 	blurBg();
 	// figer le scroll du background
